@@ -1,0 +1,18 @@
+PATH
+  remote: .
+  specs:
+    api-twister (0.0.1)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    shoulda (2.11.3)
+    test-unit (2.1.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  api-twister!
+  shoulda
+  test-unit
