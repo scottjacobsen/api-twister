@@ -1,5 +1,4 @@
-require 'test_helper'
-
+require File.expand_path('../test_helper.rb', File.dirname(__FILE__))
 class ApiTwisterTest < Test::Unit::TestCase
   context "Simple class" do
     setup do
