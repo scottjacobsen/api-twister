@@ -9,6 +9,8 @@ class ApiTwisterTest < Test::Unit::TestCase
 
         include ApiTwister
         define_api
+        api :request
+        api :response
       end
 
     end
@@ -18,6 +20,10 @@ class ApiTwisterTest < Test::Unit::TestCase
 
       k = TestKlass.new
       assert k.attributes.keys.include? "abc"
+      #
+      # assert k.to_api_xml(:request).include? "<abc>"
+      # puts k.to_api_json(:request)
+      # assert k.to_api_json(:request)
     end
 
   end

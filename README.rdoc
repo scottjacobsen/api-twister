@@ -1,0 +1,98 @@
+= API Twister Ruby Gem
+
+== What
+
+The api-twister gem is a ruby DSL to define non-trivial APIs.
+
+It works with Rails 2, Rails 3, and without Rails (you will need ActiveSupport, though). It works with ruby 1.9.1 and 1.9.2, and possibly others.
+
+== Why
+
+Defining a simple REST API in Rails that returns simple objects is easy. Do it.
+
+However, if you are returning nested objects, want to include methods in your responses, or want to exclude certain attributes, the basic configuration methods can get ugly quickly. This library hides much of the ugly. It puts knowledge of what attributes, methods, and associations to return in each model class. 
+
+== Installation
+
+  gem install api-twister
+
+=== Rails 3:
+
+Add to your Gemfile:
+  
+  gem 'api-twister'
+
+=== Rails 2:
+
+Add to your environment.rb:
+
+  config.gem 'api-twister'
+
+== Development
+
+Fork away. Please create a topic branch and write passing tests if you are submitting a pull request.
+
+  git clone git://github.com/[yourfork]/api-twister.git
+  cd api-twister
+  git checkout -b your_fix
+  bundle install
+  rake test
+
+== Show me some code!
+
+  class Monkey < ActiveRecord::Base
+    has_many :bananas
+
+    include ApiTwister
+    
+    define_api do |api|
+      api.methods :behavior, :favorite_number
+      api.association :bananas
+    end
+
+    api :request, :only => [:name]
+    api :response
+
+    def behavior
+      self.name == 'Mr. Bananas' ? 'Good' : 'Bad'
+    end
+
+    def favorite_number
+      rand(10)
+    end
+  end
+
+  class Banana < ActiveRecord::Base
+    belongs_to :monkey
+
+    include ApiTwister
+
+    define_api {|a| a.method :edible}
+
+    api :request
+    api :response
+
+    def edible
+      created_at > 10.days.ago ? 'Yes' : 'No'    
+    end
+  end
+
+You don't have to use ActiveRecord models. You can use use ActiveModel (Rails 3) or TablelessModel (Rails 2), for example.
+
+# TODO
+
+  class Van < ActiveModel
+    has_many :monkeys
+    
+    include ApiTwister
+
+    define_api {|a| a.association :monkeys}
+
+    api :request, :only => []
+    api :response  
+  end
+
+== Credits
+
+Scott Jacobsen
+Tee Parham
