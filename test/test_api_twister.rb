@@ -1,4 +1,4 @@
-require File.expand_path('../test_helper.rb', File.dirname(__FILE__))
+require File.expand_path('test_helper.rb', File.dirname(__FILE__))
 class ApiTwisterTest < Test::Unit::TestCase
   context "Simple class" do
     setup do
@@ -18,7 +18,6 @@ class ApiTwisterTest < Test::Unit::TestCase
 
       k = TestKlass.new
       assert k.attributes.keys.include? "abc"
-
     end
 
   end
