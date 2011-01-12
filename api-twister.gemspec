@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = "api-twister"
 
   s.files         = `git ls-files`.split("\n").delete_if {|file| %w(.rvmrc .gitignore).include? file}
-  s.test_files    = `git ls-files -- {test,spec,features}/*`
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
