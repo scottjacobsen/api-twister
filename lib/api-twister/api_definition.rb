@@ -1,9 +1,10 @@
 module ApiTwister
   class ApiDefinition
     attr_reader :api_items
-    attr_accessor :model
+    attr_accessor :model, :node_name
 
-    TYPE_MAP = {:association => ApiAssociation, :method => ApiMethod, :attribute => ApiAttribute}
+    TYPE_MAP = {:association => ApiAssociation, :method => ApiMethod, :attribute => ApiAttribute, :code_table => CodeTable}
+    # Returns a list of symbols where the symbol is the name of the item
     def all_items(type = nil)
       if type
         @api_items.select {|k, v| v.kind_of?(TYPE_MAP[type])}.keys
@@ -12,10 +13,19 @@ module ApiTwister
       end
     end
 
-    def initialize(model)
+def all_objects(type = nil)
+  if type
+    @api_items.select {|k, v| v.kind_of?(TYPE_MAP[type])}.values
+  else
+    @api_items.values
+  end
+end
+
+    def initialize(model, options = {})
       @has_attributes = false
       @model = model
       @api_items = {}
+      @node_name = options[:node_name] || model.name.underscore.dasherize
     end
 
     def association(assoc)
@@ -41,6 +51,10 @@ module ApiTwister
 
     def methods(*meths)
       meths.each {|m| method m}
+    end
+
+    def code_table(name, table_name, order_by=nil)
+      @api_items[name] = CodeTable.new(name, table_name, order_by)
     end
 
     def has_attributes?
