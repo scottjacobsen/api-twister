@@ -76,5 +76,27 @@ class ApiTwisterTest < Test::Unit::TestCase
       assert_equal({:include => {:another_class => {}}, :only => [:abc, :xyz]}, KlassWithAttributes.api_hash(:request))
     end
   end
+
+  context "A class where a subset of the attributes are defined in the api" do
+    setup do
+      class KlassWithSubsetOfAttributes
+        include ApiTwister
+
+        def attributes; {"abc" => nil, "xyz" => nil}; end
+        def test_method; end
+
+        define_api do |api|
+          api.attribute :abc
+        end
+
+        api :request
+      end
+    end
+
+    should "Only have the specified attribute in the api_hash" do
+      assert_equal({:only => [:abc]}, KlassWithSubsetOfAttributes.api_hash(:request))
+    end
+        
+  end
 end
 
