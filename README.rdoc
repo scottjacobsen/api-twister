@@ -34,9 +34,9 @@ Fork away. Please create a topic branch and write passing tests if you are submi
 
   git clone git://github.com/[yourfork]/api-twister.git
   cd api-twister
-  git checkout -b your_fix
   bundle install
   rake test
+  git checkout -b your_fix
 
 == Show me some code!
 
