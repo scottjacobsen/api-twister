@@ -1,5 +1,6 @@
 require 'active_support/core_ext/class/inheritable_attributes'
 require 'active_support/core_ext/hash/keys'
+require 'active_support/core_ext/string/inflections'
 
 require 'api-twister/api_association'
 require 'api-twister/api_attribute'

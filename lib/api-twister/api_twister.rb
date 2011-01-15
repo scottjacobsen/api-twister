@@ -69,8 +69,7 @@ module ApiTwister
           raise "Nil object. Spec: #{spec}, Item: #{item}" if object.nil?
           hash[:include] ||= {}
 
-          #TODO: Check if we should call object.model.api_hash or object.api_hash
-          hash[:include][item] = object.model.api_hash(name, options) if user_has_permission?(user, object.association)
+          hash[:include][item] = object.api_hash(name, options) if user_has_permission?(user, object.association)
         end
       end if spec
       hash

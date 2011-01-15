@@ -13,13 +13,13 @@ module ApiTwister
       end
     end
 
-def all_objects(type = nil)
-  if type
-    @api_items.select {|k, v| v.kind_of?(TYPE_MAP[type])}.values
-  else
-    @api_items.values
-  end
-end
+    def all_objects(type = nil)
+      if type
+        @api_items.select {|k, v| v.kind_of?(TYPE_MAP[type])}.values
+      else
+        @api_items.values
+      end
+    end
 
     def initialize(model, options = {})
       @has_attributes = false

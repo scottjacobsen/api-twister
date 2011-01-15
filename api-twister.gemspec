@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "activesupport", ">= 2.1.0" # for class_inheritable_accessor
+  s.add_development_dependency "i18n" #appears to be required by active support
   s.add_development_dependency "test-unit"
   s.add_development_dependency "shoulda"
+  s.add_development_dependency "mocha"
 end
