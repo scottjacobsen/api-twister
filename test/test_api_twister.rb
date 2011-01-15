@@ -96,7 +96,11 @@ class ApiTwisterTest < Test::Unit::TestCase
     should "Only have the specified attribute in the api_hash" do
       assert_equal({:only => [:abc]}, KlassWithSubsetOfAttributes.api_hash(:request))
     end
-        
+
+    should "Include skip types if specified as an api_hash option" do
+      assert_equal({:only => [:abc], :skip_types => true}, KlassWithSubsetOfAttributes.api_hash(:request, :skip_types => true))
+    end
   end
+  
 end
 

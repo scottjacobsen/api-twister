@@ -56,6 +56,7 @@ module ApiTwister
     def api_hash(name, options = {})
       spec = self._api_specifications[name]
       hash = { :only => [] }
+      hash[:skip_types] = options[:skip_types] if options[:skip_types]
       user = options[:user]
 
       spec.each do |item|
