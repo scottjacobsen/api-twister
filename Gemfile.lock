@@ -3,7 +3,6 @@ PATH
   specs:
     api-twister (0.0.1)
       activesupport (>= 2.1.0)
-      i18n
 
 GEM
   remote: http://rubygems.org/
