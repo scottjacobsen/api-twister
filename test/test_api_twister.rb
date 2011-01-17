@@ -59,7 +59,8 @@ class ApiTwisterTest < Test::Unit::TestCase
         end
 
         def test_method; end
-        
+
+        # stub of the ActiveRecord reflect_on_association method
         def self.reflect_on_association(*args)
           association_fake = stub(:nil? => false, :class_name => 'Hash')
         end
@@ -101,6 +102,10 @@ class ApiTwisterTest < Test::Unit::TestCase
       assert_equal({:only => [:abc], :skip_types => true}, KlassWithSubsetOfAttributes.api_hash(:request, :skip_types => true))
     end
   end
-  
+
+  context "ApiDefinition" do
+    should("respond to aliased orig_method") { assert ApiTwister::ApiDefinition.new(Hash).respond_to?(:orig_method) }
+    should("respond to aliased orig_methods") { assert ApiTwister::ApiDefinition.new(Hash).respond_to?(:orig_methods) }
+  end
 end
 

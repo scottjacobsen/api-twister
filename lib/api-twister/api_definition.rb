@@ -45,10 +45,12 @@ module ApiTwister
       attribs.each {|a| attribute a }
     end
 
+    alias_method :orig_method, :method
     def method(meth, data_type = "string", description = nil, required = false)
       @api_items[meth] = ApiMethod.new(meth, data_type, description, required)
     end
 
+    alias_method :orig_methods, :methods
     def methods(*meths)
       meths.each {|m| method m}
     end
