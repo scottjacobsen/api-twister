@@ -1,5 +1,5 @@
 require File.expand_path('test_helper.rb', File.dirname(__FILE__))
-require 'mocha'
+
 class ApiTwisterTest < Test::Unit::TestCase
 
   context "A class with the default api specification" do
