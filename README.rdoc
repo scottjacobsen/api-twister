@@ -10,7 +10,7 @@ It works with Rails 2, Rails 3, and without Rails (you will need ActiveSupport, 
 
 Defining a simple REST API in Rails that returns simple objects is easy. Do it.
 
-However, if you are returning nested objects, want to include methods in your responses, or want to exclude certain attributes, the basic configuration methods can get ugly quickly. This library hides much of the ugly. It puts knowledge of what attributes, methods, and associations to return in each model class. 
+However, if you are returning nested objects, want to include methods in your responses, or want to exclude certain attributes, the basic configuration methods can get ugly quickly. Also if you have different serialization options and do not want to use HTTP response codes to describe them (for example, no results were found in a search), things can get ugly. This library hides much of the ugly. It puts knowledge of what attributes, methods, and associations to return in each model class. It allows you to define different named serialization options. 
 
 == Installation
 
@@ -32,7 +32,7 @@ Add to your environment.rb:
 
 Fork away. Please create a topic branch and write passing tests if you are submitting a pull request.
 
-  git clone git://github.com/[yourfork]/api-twister.git
+  git clone git://github.com/yourname/api-twister.git
   cd api-twister
   bundle install
   rake test
@@ -46,19 +46,24 @@ Fork away. Please create a topic branch and write passing tests if you are submi
     include ApiTwister
     
     define_api do |api|
-      api.methods :behavior, :favorite_number
+      api.methods :behavior, :favorite_number, :status
       api.association :bananas
     end
 
     api :request, :only => [:name]
-    api :response
+    api :response                           # default is everything in define_api
+    api :error_response, :only => [:status]
 
     def behavior
-      self.name == 'Mr. Bananas' ? 'Good' : 'Bad'
+      name == 'Mr. Bananas' ? 'Good' : 'Bad'
     end
 
     def favorite_number
       rand(10)
+    end
+
+    def status
+      valid? ? 'OK' : 'Error'
     end
   end
 
@@ -77,22 +82,10 @@ Fork away. Please create a topic branch and write passing tests if you are submi
     end
   end
 
-You don't have to use ActiveRecord models. You can use use ActiveModel (Rails 3) or TablelessModel (Rails 2), for example.
-
-# TODO
-
-  class Van < ActiveModel
-    has_many :monkeys
-    
-    include ApiTwister
-
-    define_api {|a| a.association :monkeys}
-
-    api :request, :only => []
-    api :response  
-  end
+# TODO - more docs
 
 == Credits
 
 Scott Jacobsen
+
 Tee Parham
