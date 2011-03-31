@@ -28,15 +28,12 @@ Add to your environment.rb:
 
   config.gem 'api-twister'
 
-== Development
+== The Big Picture
 
-Fork away. Please create a topic branch and write passing tests if you are submitting a pull request.
-
-  git clone git://github.com/yourname/api-twister.git
-  cd api-twister
-  bundle install
-  rake test
-  git checkout -b your_fix
+1. Define your API methods in your models using api_define.
+2. Call to_api_json/to_api_xml to serialize your models. These methods use api_hash to build an options hash based on what you defined in your models.
+3. Build sample requests/responses for tests.
+4. Build real requests/responses for controllers and documentation pages.
 
 == Show me some code!
 
@@ -83,6 +80,17 @@ Fork away. Please create a topic branch and write passing tests if you are submi
   end
 
 # TODO - more docs
+
+
+== Development
+
+Fork away. Please create a topic branch and write passing tests if you are submitting a pull request.
+
+  git clone git://github.com/yourname/api-twister.git
+  cd api-twister
+  bundle install
+  rake test
+  git checkout -b your_fix
 
 == Credits
 
